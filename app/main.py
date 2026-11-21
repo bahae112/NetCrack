@@ -10,10 +10,11 @@ def _menu():
     cprint("=" * 55, Colors.YELLOW)
     cprint("   WiFi Pentest Toolkit — Console", Colors.GREEN, bold=True)
     cprint("=" * 55, Colors.YELLOW)
-    print("  1. Setup AP (WEP / WPA)")
+    print("  1. Setup AP (WEP / WPA / Airsnitch)")
     print("  2. Attaque WEP")
     print("  3. Attaque WPA/WPA2")
-    print("  4. Nettoyage (hostapd, dnsmasq, iptables)")
+    print("  4. Attaque Airsnitch")
+    print("  5. Nettoyage (hostapd, dnsmasq, iptables)")
     print("  0. Quitter")
     return input("\nVotre choix : ").strip()
 
@@ -49,6 +50,9 @@ def main():
                 from app.attacks.wpa_cracker import main as wpa_main
                 wpa_main()
             elif choice == "4":
+                from app.attacks.airsnitch_attack import main as airsnitchAttack 
+                airsnitchAttack()
+            elif choice == "5":
                 _cleanup()
             elif choice == "0":
                 print("[*] Au revoir.")
