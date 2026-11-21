@@ -29,7 +29,7 @@ def configure_ap(interface, ssid, channel, key, mode="wep",
         return False
 
     if run("which hostapd > /dev/null 2>&1") != 0:
-        print("[-] hostapd manquant. Lance : sudo ./scripts/install_deps.sh")
+        print("[-] hostapd manquant. Lance : sudo /dependencies/install_deps_wpa_wep.sh")
         return False
 
     # 1. Génération du fichier hostapd depuis le template

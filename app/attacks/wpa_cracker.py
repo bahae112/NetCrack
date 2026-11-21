@@ -23,7 +23,7 @@ def check_tools():
                                  capture_output=True).returncode != 0]
     if missing:
         print(f"[-] Outils manquants : {', '.join(missing)}")
-        print("[i] Lance : sudo ./scripts/install_deps.sh")
+        print("[i] Lance : sudo /dependencies/install_deps_wpa_wep.sh")
         return False
     return True
 

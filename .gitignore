@@ -9,3 +9,4 @@ captures/
 *.csv
 logs/
 .env
+external/

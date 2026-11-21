@@ -48,7 +48,7 @@ wifi-pentest-toolkit/
 # Installation
 python3 -m venv venv
 source venv/bin/activate
-sudo ./scripts/install_deps.sh
+sudo ./dependencies/install_deps_wpa_wep.sh
 
 # Menu principal
 sudo python3 -m app.main
