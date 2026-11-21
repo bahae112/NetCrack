@@ -15,6 +15,13 @@ HOSTAPD_TEMPLATES = {
     "wpa": os.path.join(LABS_DIR, "wpa_lab", "hostapd_wpa.conf"),
 }
 
+# NOUVEAU : templates spécifiques au lab AirSnitch :
+
+
+
+
+
+
 
 def _render(path, **kwargs):
     with open(path) as f:
@@ -82,6 +89,14 @@ def configure_ap(interface, ssid, channel, key, mode="wep",
     return True
 
 
+# NOUVEAU : configuration lab AirSnitch (dual-AP + bridge + ap_isolate=1)
+
+
+
+
+
+
+
 def enable_nat(ap_interface, internet_interface):
     print("[*] Forwarding + NAT...")
     run("sysctl -w net.ipv4.ip_forward=1", capture=False)
@@ -97,12 +112,15 @@ def enable_nat(ap_interface, internet_interface):
 
 def _interactive():
     cprint("Configuration interactive du Point d'Accès", Colors.GREEN, bold=True)
-    print("1. Mode WEP\n2. Mode WPA-PSK\n3. Mode Airsnitch")
-    mode = {"1": "wep", "2": "wpa","3":"Airsnitch"}[
+    print("1. Mode WEP\n2. Mode WPA-PSK\n")
+    print("3. Mode AirSnitch") 
+    mode = {"1": "wep", "2": "wpa","3":"airsnitch"}[
         ask("Votre choix [1/2/3]", default="2",
             validator=lambda x: x in ("1", "2","3"))
     ]
 
+    if mode == "airsnitch":
+        _interactive_airsnitch() 
     list_interfaces()
     iface = ask("Interface AP (ex: wlan1)", default="wlan1",
                 validator=iface_exists)
@@ -122,20 +140,61 @@ def _interactive():
     sys.exit(0 if ok else 1)
 
 
+
+
+#NOUVEAU : INTERACTIVE AIRSNITCH 
+
+
+
+
+
+
+
+
+
 def _cli():
-    p = argparse.ArgumentParser(description="Setup AP WEP / WPA")
-    p.add_argument("--mode", choices=["wep", "wpa"], required=True)
-    p.add_argument("--interface", required=True)
+    p = argparse.ArgumentParser(description="Setup AP WEP / WPA / AirSnitch lab")
+    p.add_argument("--mode", choices=["wep", "wpa", "airsnitch"], required=True)
+
+    # Communs WEP/WPA
+    p.add_argument("--interface", default=None)
     p.add_argument("--ssid", default="AP1")
     p.add_argument("--channel", default="6")
     p.add_argument("--key", default="1234567890")
     p.add_argument("--bssid", default=None)
+
+    # AirSnitch
+    p.add_argument("--ap1", default=None)
+    p.add_argument("--ap2", default=None)
+    p.add_argument("--bridge", default="br0")
+    p.add_argument("--bridge-ip", default="192.168.10.1")
+    p.add_argument("--ssid1", default="Lab-AP1")
+    p.add_argument("--ssid2", default="Lab-AP2")
+    p.add_argument("--channel1", default="1")
+    p.add_argument("--channel2", default="6")
+    p.add_argument("--password", default="1234567890")
+
     p.add_argument("--internet-interface", default=None)
     a = p.parse_args()
 
-    ok = configure_ap(a.interface, a.ssid, a.channel, a.key,
-                      mode=a.mode, bssid=a.bssid,
-                      internet_interface=a.internet_interface)
+    if a.mode == "airsnitch":
+        if not a.ap1 or not a.ap2:
+            print("[-] --ap1 et --ap2 sont requis en mode airsnitch.")
+            sys.exit(1)
+        ok = configure_airsnitch_lab(
+            a.ap1, a.ap2, a.bridge, a.bridge_ip,
+            a.ssid1, a.ssid2, a.channel1, a.channel2,
+            a.password, a.internet_interface,
+        )
+    else:
+        if not a.interface:
+            print("[-] --interface requis.")
+            sys.exit(1)
+        ok = configure_ap(a.interface, a.ssid, a.channel, a.key,
+                          mode=a.mode, bssid=a.bssid,
+                          internet_interface=a.internet_interface)
+    # ▲▲▲ FIN DU BLOC ▲▲▲
+
     sys.exit(0 if ok else 1)
 
 
