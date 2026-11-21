@@ -1,4 +1,5 @@
 # app/config.py
+from app.config import Colors, cprint
 import os
 import re
 import subprocess
@@ -51,6 +52,36 @@ def ask(prompt, default=None, validator=None):
             continue
         return ans
 
+
+
+
+
+
+
+def show_banner():
+    """Affiche le banner NetCrack coloré dans la console."""
+
+    VERSION = "1.0.1"
+
+    _ART = r"""
+    _   _      _    ____                _    
+    | \ | | ___| |_ / ___|_ __ __ _  ___| | __
+    |  \| |/ _ \ __| |   | '__/ _` |/ __| |/ /
+    | |\  |  __/ |_| |___| | | (_| | (__|   < 
+    |_| \_|\___|\__|\____|_|  \__,_|\___|_|\_\
+    """
+
+    _TAGLINE = "WiFi Pentest Toolkit — WEP / WPA / WPA2"
+    line = "=" * 60
+    cprint(line, Colors.CYAN)
+    for row in _ART.strip("\n").split("\n"):
+        cprint(row, Colors.RED, bold=True)
+    cprint(line, Colors.CYAN)
+    cprint(f"  {_TAGLINE}", Colors.YELLOW, bold=True)
+    cprint(f"  v{VERSION}", Colors.YELLOW, bold=True)
+    cprint("  Usage légal uniquement — réseaux autorisés", Colors.DIM)
+    cprint(line, Colors.CYAN)
+    print()
 
 def list_interfaces():
     print("\n[i] Interfaces réseau disponibles :")

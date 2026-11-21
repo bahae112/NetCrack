@@ -2,7 +2,7 @@
 # app/main.py
 import sys
 
-from app.config import Colors, cprint, is_root
+from app.config import Colors, cprint, is_root, show_banner
 
 
 def _menu():
@@ -35,6 +35,7 @@ def main():
                Colors.RED, bold=True)
         sys.exit(1)
 
+    show_banner()   
     while True:
         choice = _menu()
         try:
