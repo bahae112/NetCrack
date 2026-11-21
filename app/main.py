@@ -56,7 +56,7 @@ def main():
                 _cleanup()
             elif choice == "0":
                 print("[*] Au revoir.")
-                sys.exit(0)
+                return 
             else:
                 print("[-] Choix invalide.")
         except KeyboardInterrupt:

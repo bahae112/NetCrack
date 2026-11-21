@@ -6,6 +6,10 @@ import subprocess
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LABS_DIR = os.path.join(PROJECT_ROOT, "labs")
 CAPTURES_DIR = os.path.join(PROJECT_ROOT, "captures")
+AIRSNITCH_DIR = os.environ.get(                          
+    "AIRSNITCH_DIR",
+    os.path.join(PROJECT_ROOT, "external", "airsnitch")
+)
 
 os.makedirs(CAPTURES_DIR, exist_ok=True)
 
