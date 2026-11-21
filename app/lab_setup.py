@@ -97,10 +97,10 @@ def enable_nat(ap_interface, internet_interface):
 
 def _interactive():
     cprint("Configuration interactive du Point d'Accès", Colors.GREEN, bold=True)
-    print("1. Mode WEP\n2. Mode WPA-PSK")
-    mode = {"1": "wep", "2": "wpa"}[
-        ask("Votre choix [1/2]", default="2",
-            validator=lambda x: x in ("1", "2"))
+    print("1. Mode WEP\n2. Mode WPA-PSK\n3. Mode Airsnitch")
+    mode = {"1": "wep", "2": "wpa","3":"Airsnitch"}[
+        ask("Votre choix [1/2/3]", default="2",
+            validator=lambda x: x in ("1", "2","3"))
     ]
 
     list_interfaces()
