@@ -1,3 +1,12 @@
+# 🛡️ WiFi Pentest Toolkit
+
+Outil de pentest Wi-Fi en Python (WEP, WPA/WPA2-PSK, AirSnitch) avec interface graphique, laboratoires de test reproductibles et support Docker.
+
+---
+
+## 📁 Structure du projet
+
+```
 wifi-pentest-toolkit/
 │
 ├── app/                             
@@ -9,7 +18,6 @@ wifi-pentest-toolkit/
 │   │   ├── wep_cracker.py          
 │   │   ├── wpa_cracker.py          
 │   │   └── airsnitch_attack.py      
-│   │
 │
 ├── labs/                          
 │   ├── wep_lab/                 
@@ -32,3 +40,7 @@ wifi-pentest-toolkit/
 ├── .gitignore
 ├── README.md
 └── requirements.txt
+```
+
+---
+
