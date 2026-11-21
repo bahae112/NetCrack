@@ -1,6 +1,6 @@
 # 🛡️ WiFi Pentest Toolkit
 
-Outil de pentest Wi-Fi en Python (WEP, WPA/WPA2-PSK, AirSnitch) avec interface graphique, laboratoires de test reproductibles et support Docker.
+Outil de pentest Wi-Fi en Python (WEP, WPA/WPA2-PSK, AirSnitch) , laboratoires de test reproductibles et support Docker.
 
 ---
 
