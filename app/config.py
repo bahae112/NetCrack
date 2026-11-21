@@ -1,5 +1,4 @@
-# app/config.py
-from app.config import Colors, cprint
+
 import os
 import re
 import subprocess
@@ -58,6 +57,33 @@ def ask(prompt, default=None, validator=None):
 
 
 
+
+
+def list_interfaces():
+    print("\n[i] Interfaces réseau disponibles :")
+    run("ip -o link show | awk -F': ' '{print $2}' | grep -v lo")
+    print()
+
+
+def is_root():
+    return os.geteuid() == 0
+
+
+def is_valid_mac(mac):
+    return re.match(r"^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$", mac) is not None
+
+
+def is_valid_channel(ch):
+    return ch.isdigit() and 1 <= int(ch) <= 14
+
+
+def iface_exists(name):
+    return os.path.exists(f"/sys/class/net/{name}")
+
+
+
+
+
 def show_banner():
     """Affiche le banner NetCrack coloré dans la console."""
 
@@ -82,24 +108,3 @@ def show_banner():
     cprint("  Usage légal uniquement — réseaux autorisés", Colors.DIM)
     cprint(line, Colors.CYAN)
     print()
-
-def list_interfaces():
-    print("\n[i] Interfaces réseau disponibles :")
-    run("ip -o link show | awk -F': ' '{print $2}' | grep -v lo")
-    print()
-
-
-def is_root():
-    return os.geteuid() == 0
-
-
-def is_valid_mac(mac):
-    return re.match(r"^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$", mac) is not None
-
-
-def is_valid_channel(ch):
-    return ch.isdigit() and 1 <= int(ch) <= 14
-
-
-def iface_exists(name):
-    return os.path.exists(f"/sys/class/net/{name}")
