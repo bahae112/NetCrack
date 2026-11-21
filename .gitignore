@@ -1,0 +1,11 @@
+venv/
+__pycache__/
+*.pyc
+captures/
+*.cap
+*.pcap
+*.hc22000
+*.kismet.netxml
+*.csv
+logs/
+.env

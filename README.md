@@ -44,3 +44,16 @@ wifi-pentest-toolkit/
 
 ---
 
+
+# Installation
+python3 -m venv venv
+source venv/bin/activate
+sudo ./scripts/install_deps.sh
+
+# Menu principal
+sudo python3 -m app.main
+
+# Ou directement
+sudo python3 -m app.lab_setup --mode wpa --interface wlan1 --internet-interface eth0
+sudo python3 -m app.attacks.wep_cracker
+sudo python3 -m app.attacks.wpa_cracker
